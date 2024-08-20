@@ -4,24 +4,38 @@
 
 body{
   margin: 0;
+  background-color: #1e2124;
 }
 
 .main{
   display: flex;
   flex-direction: column;
-  background-color: aqua;
+  background-color: #282b30;
   width: 100%;
+  height: calc(100vh - 80px);
+  align-items: center;
+
+}
+
+section{
+
+}
+
+.comparison-image{
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  margin-top: 50px;
 }
 
 .header{
-  height: 100px;
+  height: 80px;
   display: flex;
-  background-color: blue;
+  background-color: #1e2124;
   text-align: center;
   justify-content: center;
   align-items: center;
   font-size: 2.5em;
-  
+  color: white;
 }
 
 footer{
@@ -33,6 +47,7 @@ footer{
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: blue;
+  background-color: #1e2124;
+  color: white;
 }
 
