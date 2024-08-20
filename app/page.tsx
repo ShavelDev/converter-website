@@ -2,18 +2,48 @@
 import Image from "next/image";
 import { useState } from "react";
 
+
 export default function Home() {
 
   const [file, changeFile] = useState<File | null>(null);
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if(!file){
       console.error("No file provided");
+      return;
+    }
+    
+    const formData = new FormData();
+    formData.append("file", file as File);
+
+
+    try{
+      const response = await fetch("/api/convert",{
+        method: 'POST',
+        body: formData
+      })
+      
+      if(!response.ok){
+        throw("ERROR: there is a problem with the reponse")
+        return;
+      }
+
+      const data = await response.json();
+
+      console.log("DATA RECEIVED SUCCESSFULY")
+      console.log(data.success);
+
+
+     
+      return;
+
+    }catch(error){
+      return 
     }
 
-    
+
 
   }
 
@@ -36,7 +66,9 @@ export default function Home() {
       <form onSubmit={submitHandler}>
     
         <input type="file"
-        required />
+          required 
+          onChange={(e) => changeFile(e.target.files?.item(0) || null)}
+        />
 
         <button type="submit"> Submit</button>
 
