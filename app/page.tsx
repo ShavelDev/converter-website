@@ -27,16 +27,21 @@ export default function Home() {
         body: formData
       })
       
-      if(!response.ok){
-        throw("ERROR: there is a problem with the reponse")
-        setLoading(false);
-        return;
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cat.jpg'; // The file name to download
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      } else {
+        console.error('Failed to download file');
       }
 
-      const data = await response.json();
-
-      console.log("DATA RECEIVED SUCCESSFULY")
-      console.log(data.success);
+      
 
 
       setLoading(false);
@@ -82,7 +87,6 @@ export default function Home() {
               <input type="file"
               required 
               onChange={(e) => changeFile(e.target.files?.item(0) || null)}
-              className=""
               />
 
               <button type="submit"> Submit</button>

@@ -1,7 +1,10 @@
 import { execFile } from "child_process";
-import { writeFile } from "fs/promises";
+import { Console } from "console";
+import { writeFile, readFile } from "fs/promises";
 import { NextResponse, NextRequest } from "next/server";
 import process from 'process';
+import {join} from 'path'
+
 
 
 export async function POST(request: NextRequest){
@@ -32,7 +35,31 @@ export async function POST(request: NextRequest){
         //console.error(`stderr: ${stderr}`);
        return;
     });
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 10000));
     console.log(`File written successfuly at ${path}`)
+
+
+    const newFileName = file.name.slice(0,-3)
+    const filePath = join(process.cwd(),  `/${newFileName}jpg`);
+    
+
+    try {
+        // Read the file content
+        const fileContent = await readFile(filePath);
+
+        // Create a response with the file content
+        const response = new NextResponse(fileContent, {
+        headers: {
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': 'attachment; filename="example.txt"',
+        },
+        });
+
+        return response;
+    } catch (error) {
+        console.log(filePath);
+        
+        return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    }
     return NextResponse.json({success: true})
 }
