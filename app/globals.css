@@ -51,3 +51,73 @@ footer{
   color: white;
 }
 
+
+.formRect{
+  width: 700px;
+  margin-top: 50px;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+  justify-content: center;
+
+
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.formTextDiv{
+  flex-grow: 2;
+  font-size: large;
+  width: 70%;
+}
+
+.formText{
+  font-size: larger;
+  text-align: center;
+}
+
+.formDiv{
+  flex-grow: 1;
+  width: 30%;
+}
+
+.divider{
+  height: 90%;
+  width: 1px;
+  background-color: rgba(152, 147, 147, 0.8);
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 1px;
+
+}
+button[type="submit"] {
+  background-color: #4a4a4a; /* Grey background */
+  color: white; /* White text */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Add some padding */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1em; /* Increase font size */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+button[type="submit"]:hover {
+  background-color: #6c6c6c; /* Slightly lighter grey on hover */
+}
+
+input{
+  cursor: pointer;
+  width: 200px;
+
+}
+
+
+

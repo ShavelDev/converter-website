@@ -6,12 +6,14 @@ import { useState } from "react";
 export default function Home() {
 
   const [file, changeFile] = useState<File | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setLoading(true);
     if(!file){
       console.error("No file provided");
+      setLoading(false);
       return;
     }
     
@@ -27,6 +29,7 @@ export default function Home() {
       
       if(!response.ok){
         throw("ERROR: there is a problem with the reponse")
+        setLoading(false);
         return;
       }
 
@@ -36,10 +39,11 @@ export default function Home() {
       console.log(data.success);
 
 
-     
+      setLoading(false);
       return;
 
     }catch(error){
+      setLoading(false);
       return 
     }
 
@@ -63,23 +67,36 @@ export default function Home() {
         height={400}
       />
 
-      <form onSubmit={submitHandler}>
-    
-        <input type="file"
-          required 
-          onChange={(e) => changeFile(e.target.files?.item(0) || null)}
-        />
-
-        <button type="submit"> Submit</button>
-
-
-
-      </form>
-
+      <div className="formRect">
+        <div className="formTextDiv">
+          <p className="formText">Upload your .bmp file and turn it into grayscale jpg !!!</p>
           
+        </div>
+
+        <div className="divider"/>
+        
+        <div className="formDiv">
+
+          { isLoading ?  <p>Loading...</p>:
+            <form onSubmit={submitHandler}>
+              <input type="file"
+              required 
+              onChange={(e) => changeFile(e.target.files?.item(0) || null)}
+              className=""
+              />
+
+              <button type="submit"> Submit</button>
+            </form>
+          }
+        </div>
+      </div>
+      
+   
        
 
       </main>
+
+    
       <footer className="footer-text">
         <p>
         ShavelDev
